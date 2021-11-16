@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <title>Vanilla JS filter</title>
+</head>
+<body>
+  
+  <div class="info">
+    <p>This example implements a filter in Vanilla JS.</p>
+  </div>
+
+  <input id="search">
+
+  <div class="lists">
+    <div class="list-holder">
+      <h4>North America</h4>
+      <ul class="list-category">
+        <li><a href="#">Canada</a></li>
+        <li><a href="#">United States</a></li>
+        <li><a href="#">Bolivia</a></li>
+      </ul>
+    </div>
+    <div class="list-holder">
+      <h4>Latin America</h4>
+      <ul class="list-category">
+        <li><a href="#">Paraguay</a></li>
+        <li><a href="#">Bolivia</a></li>
+        <li><a href="#">Argentina</a></li>
+        <li><a href="#">Brazil</a></li>
+      </ul>
+    </div>
+    <div class="list-holder">
+      <h4>Europe</h4>
+      <ul class="list-category">
+        <li><a href="#">France</a></li>
+        <li><a href="#">Spain</a></li>
+        <li><a href="#">Belgium</a></li>
+        <li><a href="#">The Netherlands</a></li>
+      </ul>
+    </div>
+    <div class="list-holder">
+      <h4>Asia</h4>
+      <ul class="list-category">
+        <li><a href="#">Japan</a></li>
+        <li><a href="#">China</a></li>
+        <li><a href="#">Phillipines</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+    var searchDomEl =  document.getElementById('search');
+
+    var inputVal = ''
+
+    if (typeof(searchDomEl) != 'undefined' && searchDomEl != null) {
+
+      searchDomEl.addEventListener("input", function (e) {
+        inputVal = e.target.value.toUpperCase()
+        filter()
+        hideHeaders()
+      })
+
+    }
+
+    function filter() {
+      document.querySelectorAll('.list-category').forEach(item => {
+        item.querySelectorAll("li a").forEach(item => {
+
+          const txtValue = item.textContent.toUpperCase()
+
+          if (txtValue.indexOf(inputVal) > -1) {
+            item.parentElement.style.display = "";
+          } else {
+            item.parentElement.style.display = "none";
+          }
+
+        })
+      })
+    }
+    
+    // Check if all list items are hidden, if that's the case, then hide the header as well
+    function hideHeaders() {
+
+      var parents = document.querySelectorAll(".list-holder");
+      parents.forEach(parent => {
+        if (parent.querySelectorAll(".list-category li").length == parent.querySelectorAll(".list-category li[style='display: none;']").length) {
+          parent.style.display = "none"
+        } else {
+          parent.style.display = "block"
+        }
+      })
+
+    }
+
+  </script>
+</body>
